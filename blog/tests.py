@@ -21,7 +21,9 @@ class BlogTests(APITestCase):
         )
 
     def test_show_posts(self):
-        """Testing the display of posts"""
+        """Testing the display of posts in user acc"""
+
+        self.client.login(username='somename', password='test_password')
 
         response = self.client.get(reverse('shows_users_posts'), format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
