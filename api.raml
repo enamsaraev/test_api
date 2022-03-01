@@ -1,0 +1,168 @@
+#%RAML 1.0
+title: New API
+baseUri: /
+mediaType:
+  - application/json
+protocols:
+  - HTTP
+/acc/createacc/:
+  post:
+    responses:
+      "201":
+        description: created
+    description: |-
+      EXAMPLE
+              data = {
+                  'username': 'name',
+                  'password': 'wer',
+                  'password_repeat': 'werrr',
+                  'first_name': 'some_name',
+                  'last_name': 'some_pass',
+                  'email': 'somemail@mail.com'
+              }
+    securedBy: []
+/acc/createpost/:
+  post:
+    responses:
+      "201":
+        description: created
+    description: |-
+      Only for authenticated users
+      EXAMPLE
+              data = {
+                  'title': 'title',
+                  'text': 'text',
+                  'user': user,
+              }
+    securedBy: []
+/acc/myposts/:
+  get:
+    responses:
+      "200":
+        description: |-
+          Only for authenticated users
+          returns array
+          EXAMPLE:
+          [
+              {
+                  "title": "title",
+                  "text": "text",
+                  "user": "nameofuser",
+                  "created_at": "2022-03-01T11:40
+              }
+          ]
+        body:
+          application/json:
+            items:
+              type: string
+    securedBy: []
+/acc/mysubs/:
+  get:
+    responses:
+      "200":
+        description: |-
+          Returns all suers' subscriptions
+          Only for authenticated users
+          EXAMPLE
+          "blog_author": {
+               "username": "tu",
+                 "posts": [
+                    {
+                    "title": "title
+                    "text": "text",
+                    "created_at": "2022-02-21T12:24
+                     }
+                      ]
+                  },
+                  "date": "2022-03-01T11:42:18
+    securedBy: []
+/blog/posts/:
+  get:
+    responses:
+      "200":
+        description: Returns all users' posts
+    securedBy: []
+/blog/users/:
+  get:
+    responses:
+      "200":
+        description: |-
+          Return all users
+          EXAMPLE   
+           {
+                  "username": "admin",
+                  "first_name": "",
+                  "last_name": "",
+                  "email": "",
+                  "posts": []
+              },
+              {
+                  "username": "nameofuser",
+                  "first_name": "name",
+                  "last_name": "surname",
+                  "email": "mail@mail.com",
+                  "posts": [
+                      {
+                          "title": "title",
+                          "text": "text",
+                          "created_at": "2022-03-01T11:40:46.804347Z"
+                      }
+                  ]
+              },
+    securedBy: []
+/blog/posts/{}/:
+  get:
+    responses:
+      "200":
+        description: |-
+          Returns info about post with id
+          {
+              "title": "title",
+              "text": "text",
+              "user": "blabla",
+              "created_at": "2022-02-21T12:24:42.564602Z"
+          }
+    securedBy: []
+/blog/users/{}/:
+  get:
+    description: takes an user id
+    responses:
+      "200":
+        description: |-
+          Returns info about user with id
+          Only for authenticated users
+          EXAMPLE
+          {
+              "username": "tu",
+              "first_name": "name",
+              "last_name": "surname",
+              "email": "tu@mail.com",
+              "posts": [
+                  {
+                      "title": "title",
+                      "text": "text",
+                      "created_at": "2022-02-21T12:24:30.040496Z"
+                  }
+              ]
+          }
+    securedBy: []
+/blog/posts/by_date/:
+  get:
+    responses:
+      "200":
+        description: |
+          Returns all posts by date
+          First the latest posts
+    securedBy: []
+/users/{}/subscribe/:
+  post:
+    description: |-
+      Makes a subscription to user with pk in url
+              data = {
+                  'subscriber': self.test_user,
+                  'blog_author': test_author,
+              }
+    responses:
+      "201":
+        description: created
+securedBy: []
